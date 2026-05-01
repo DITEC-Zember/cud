@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:PrimaryLocationReplicationResponse xmlns:ns2="http://schema.refdata.li.cc.uic.org/types/v1">
+
+
+<ns2:Primary_Location xmlns:ns2="http://schema.refdata.li.cc.uic.org/types/v1">
+    <ns2:Country>
+        <ns2:CountryCodeISO>BE</ns2:CountryCodeISO>
+        <Country_UIC_Code>88</Country_UIC_Code>
+        <Country_Name_EN>Belgium</Country_Name_EN>
+        <Country_Name_FR>Belgique</Country_Name_FR>
+        <Country_Name_DE>Belgien</Country_Name_DE>
+        <Sub_Loc_Code_Flag>true</Sub_Loc_Code_Flag>
+        <Add_Date>2011-11-15T11:28:43+01:00</Add_Date>
+        <Modified_Date>2011-11-15T16:02:38+01:00</Modified_Date>
+    </ns2:Country>
+    <Location_Code>1982</Location_Code>
+    <Start_Validity>2016-09-05T00:00:00+02:00</Start_Validity>
+    <End_Validity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+    <ResponsibleIM>
+        <Company_Name>Infrabel</Company_Name>
+        <Company_Name_ASCII xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <Company_UIC_Code>0088</Company_UIC_Code>
+        <Company_URL>http://www.infrabel.be/</Company_URL>
+        <ns2:Country>
+            <ns2:CountryCodeISO>BE</ns2:CountryCodeISO>
+            <Country_UIC_Code>88</Country_UIC_Code>
+            <Country_Name_EN>Belgium</Country_Name_EN>
+            <Country_Name_FR>Belgique</Country_Name_FR>
+            <Country_Name_DE>Belgien</Country_Name_DE>
+            <Sub_Loc_Code_Flag>true</Sub_Loc_Code_Flag>
+            <Add_Date>2011-11-15T11:28:43+01:00</Add_Date>
+            <Modified_Date>2011-11-15T16:02:38+01:00</Modified_Date>
+        </ns2:Country>
+        <Start_Validity>2014-01-01T00:00:00+01:00</Start_Validity>
+        <End_Validity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <Company_Short_Name>Infrabel</Company_Short_Name>
+        <Free_Text xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <ns2:Contact_Details>
+            <Contact_Person>Mr Patrick Konix</Contact_Person>
+            <Email>patrick.konix@infrabel.be</Email>
+            <Phone_Number xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <FAX_Number xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <Address>Rue Bara 110</Address>
+            <City>Bruxelles</City>
+            <Mobile_Number xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <Postal_Code>1070</Postal_Code>
+        </ns2:Contact_Details>
+        <Passenger_Flag>false</Passenger_Flag>
+        <Freight_Flag>false</Freight_Flag>
+        <Infrastructure_Flag>true</Infrastructure_Flag>
+        <Other_Company_flag>false</Other_Company_flag>
+        <NE_Entity_Flag>true</NE_Entity_Flag>
+        <CE_Entity_Flag>false</CE_Entity_Flag>
+        <Add_Date>2011-11-14T23:00:00+01:00</Add_Date>
+        <Modified_Date>2016-07-27T13:01:12+02:00</Modified_Date>
+    </ResponsibleIM>
+    <Location_Name>BOIS D'AUSSE</Location_Name>
+    <Location_Name_ASCII>BOIS D'AUSSE</Location_Name_ASCII>
+    <NUTS_Code xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+    <Container_Handling_Flag>false</Container_Handling_Flag>
+    <Handover_Point_Flag>false</Handover_Point_Flag>
+    <Freight_Possible_Flag>true</Freight_Possible_Flag>
+    <Freight_Start_Validity>2023-12-10T00:00:00+01:00</Freight_Start_Validity>
+    <Freight_End_Validity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+    <Passenger_Possible_Flag>true</Passenger_Possible_Flag>
+    <Passenger_Start_Validity>2023-12-10T00:00:00+01:00</Passenger_Start_Validity>
+    <Passenger_End_Validity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+    <Longitude>4.986277</Longitude>
+    <Latitude>50.401333</Latitude>
+    <Free_Text xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+    <Add_Date>2016-06-20T08:47:51+02:00</Add_Date>
+    <Modified_Date>2023-12-31T20:56:14+01:00</Modified_Date>
+</ns2:Primary_Location>
+
+</ns2:PrimaryLocationReplicationResponse>

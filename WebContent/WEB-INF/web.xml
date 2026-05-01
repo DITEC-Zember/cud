@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<!-- Verzia servlet specifikacie 2.4, iba s touto funguje GWT regularne vyrazy -->
+	<display-name>CUD</display-name>
+	<description>Modul {modul}, verzia {verzia}, server {server}, kontext /{kontext}, buildId {buildId}, vytvoril {build_vytvoril}</description>
+	
+	<filter>
+		<filter-name>CudDataWSService Authentification</filter-name>
+		<filter-class>sk.ditec.zsr.common.server.auth.ZSRBasicAuthFilter</filter-class>
+		<init-param>
+			<param-name>perm</param-name>
+			<param-value>CUDWSPublicDataRead</param-value>
+		</init-param>
+	</filter>
+	<filter>
+		<filter-name>KMDDataService Authentification</filter-name>
+		<filter-class>sk.ditec.zsr.common.server.auth.ZSRBasicAuthFilter</filter-class>
+		<init-param>
+			<param-name>perm</param-name>
+			<param-value>KMDWSPublicDataRead</param-value>
+		</init-param>
+	</filter>
+	<filter>
+		<filter-name>CudMetaWSService Authentification</filter-name>
+		<filter-class>sk.ditec.zsr.common.server.auth.ZSRBasicAuthFilter</filter-class>
+		<init-param>
+			<param-name>perm</param-name>
+			<param-value>CUDWSMIDMetaRead</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>CudDataWSService Authentification</filter-name>
+		<url-pattern>/CudDataWS</url-pattern>
+	</filter-mapping>
+		<filter-mapping>
+		<filter-name>KMDDataService Authentification</filter-name>
+		<url-pattern>/KMDDataService</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>KMDDataService Authentification</filter-name>
+		<url-pattern>/CskmdService</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CudMetaWSService Authentification</filter-name>
+		<url-pattern>/CudMetaWS</url-pattern>
+	</filter-mapping>
+	
+
+	<!-- Na korektne ukoncenie procesov pri undeploy/stop aplikacie -->
+	<listener>
+		<listener-class>sk.ditec.process.ProcessContextDestroyer</listener-class>
+	</listener>
+
+	<!-- Kniznica JAX-WS, kvoli funkcnosti vystavenych Web Servicov -->
+	<listener>
+		<listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
+	</listener>
+
+	<!-- Konfiguracia logovania a otestovanie hlavneho spojenia do databazy -->
+	<servlet>
+		<servlet-name>AppInitializator</servlet-name>
+		<servlet-class>sk.ditec.common.actions.Initializator</servlet-class>
+		<init-param>
+			<param-name>modul</param-name>
+			<param-value>cud</param-value>
+		</init-param>
+		<init-param>
+			<param-name>server</param-name>
+			<param-value>{server}</param-value>
+		</init-param>
+		<init-param>
+			<param-name>buildId</param-name>
+			<param-value>{buildId}</param-value>
+		</init-param>
+		<init-param>
+			<param-name>build_vytvoril</param-name>
+			<param-value>{build_vytvoril}</param-value>
+		</init-param>
+		<init-param>
+			<param-name>verzia</param-name>
+			<param-value>{verzia}</param-value>
+		</init-param>
+		<load-on-startup>200</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>CudMetaWSService</servlet-name>
+		<servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CudWSService</servlet-name>
+		<servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CudDataWSService</servlet-name>
+		<servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>KMDDataService</servlet-name>
+		<servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CskmdService</servlet-name>
+		<servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ProcWSService</servlet-name>
+		<servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ProcessServlet</servlet-name>
+		<servlet-class>sk.ditec.process.ProcessServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>test</servlet-name>
+		<servlet-class>sk.ditec.test.TestServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CudInitializator</servlet-name>
+		<servlet-class>sk.ditec.cud.bi.CudInitializator</servlet-class>
+		<load-on-startup>600</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>ProcessTestDB</servlet-name>
+		<servlet-class>sk.ditec.cud.proc.ProcessTestDB</servlet-class>
+	</servlet>
+	
+	
+	<servlet-mapping>
+		<servlet-name>ProcessTestDB</servlet-name>
+		<url-pattern>/ProcessTestDB</url-pattern>
+	</servlet-mapping>
+
+	
+	<!-- Web Services -->
+	<servlet-mapping>
+		<servlet-name>CudMetaWSService</servlet-name>
+		<url-pattern>/CudMetaWS</url-pattern>
+	</servlet-mapping>
+
+	<!-- Business logika Rich clienta, Web Services -->
+	<servlet-mapping>
+		<servlet-name>CudWSService</servlet-name>
+		<url-pattern>/CudWS</url-pattern>
+	</servlet-mapping>
+
+	<!-- Web Services -->
+	<servlet-mapping>
+		<servlet-name>CudDataWSService</servlet-name>
+		<url-pattern>/CudDataWS</url-pattern>
+	</servlet-mapping>
+
+	<!-- Web Services -->
+	<servlet-mapping>
+		<servlet-name>KMDDataService</servlet-name>
+		<url-pattern>/KMDDataService</url-pattern>
+	</servlet-mapping>
+
+	<!-- Web Services -->
+	<servlet-mapping>
+		<servlet-name>CskmdService</servlet-name>
+		<url-pattern>/CskmdService</url-pattern>
+	</servlet-mapping>
+
+	<!-- Management procesov cez Web Servicess z modulu EPS, zalozka Procesy -->
+	<servlet-mapping>
+		<servlet-name>ProcWSService</servlet-name>
+		<url-pattern>/ProcWS</url-pattern>
+	</servlet-mapping>
+
+	<!-- Management procesov zadanim url s operaciou do prehliadaca -->
+	<servlet-mapping>
+		<servlet-name>ProcessServlet</servlet-name>
+		<url-pattern>/process</url-pattern>
+	</servlet-mapping>
+
+	<!-- Servlet na testovanie funkcnosti aplikacie - DB poolu, zasielania emailov, LDAP servera -->
+	<servlet-mapping>
+		<servlet-name>test</servlet-name>
+		<url-pattern>/test</url-pattern>
+	</servlet-mapping>
+
+    	<!-- Servlet na testovanie funkcnosti crd aplikacie -->
+	<servlet>
+		<servlet-name>TestCrdSluzbyServlet</servlet-name>
+		<servlet-class>sk.ditec.crd.testcrd.TestCrdSluzbyServlet</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>TestCrdSluzbyServlet</servlet-name>
+		<url-pattern>/TestCrdSluzbyServlet</url-pattern>
+	</servlet-mapping>
+
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+</web-app>

@@ -1,0 +1,22 @@
+<configuration>
+
+    <!-- Development -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%date{dd MMM yyyy HH:mm:ss.SSS} %-5level \(%file:%line\) %msg %xEx{10} %n</Pattern>
+        </layout>
+    </appender>
+
+    <logger name="sk.ditec" level="DEBUG" />
+    <logger name="sk.ditec.org" level="INFO" />
+    <logger name="sk.ditec.com" level="INFO" />
+    <logger name="sk.ditec.javax" level="INFO" />
+    <logger name="jdbc" level="ERROR" />
+    <logger name="jdbc.sqlonly" level="INFO" />
+    <logger name="com.sun" level="ERROR" />
+
+    <root>
+        <level value="ERROR" />
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

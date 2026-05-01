@@ -1,0 +1,9 @@
+
+# /WebContent/
+/WebContent/cud
+
+# /WebContent/WEB-INF/
+/WebContent/WEB-INF/classes
+/build/
+
+/.settings/

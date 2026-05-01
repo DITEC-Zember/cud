@@ -1,0 +1,1 @@
+c:\Java\jdk1.7.0_45\bin\wsimport.exe -b c:\JAVA\workspace\ais\build\xjb\rich.xjb -keep -s ./JavaSource -p sk.ditec.crd.ws  http://a01service-zsr-ipaas.apps.ocptest.intra.zsr.sk/service/a01service?wsdl

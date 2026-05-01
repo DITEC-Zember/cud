@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="jasper_report_template" pageWidth="595" pageHeight="842" columnWidth="515" leftMargin="40" rightMargin="40" topMargin="25" bottomMargin="50">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="field" fontSize="11"/>
+	<style name="textRight" style="field" hAlign="Right"/>
+	<subDataset name="CudDataSource">
+		<field name="field1" class="java.lang.String"/>
+		<field name="field2" class="java.lang.String"/>
+		<field name="field3" class="java.lang.String"/>
+		<field name="field4" class="java.lang.String"/>
+		<field name="field5" class="java.lang.String"/>
+		<field name="field6" class="java.lang.String"/>
+		<field name="field7" class="java.lang.String"/>
+		<field name="field8" class="java.lang.String"/>
+		<field name="field9" class="java.lang.String"/>
+		<field name="field10" class="java.lang.String"/>
+		<field name="field11" class="java.lang.String"/>
+		<field name="field12" class="java.lang.String"/>
+		<field name="field13" class="java.lang.String"/>
+		<field name="field14" class="java.lang.String"/>
+		<field name="field15" class="java.lang.String"/>
+		<field name="field16" class="java.lang.String"/>
+		<field name="field17" class="java.lang.String"/>
+		<field name="field18" class="java.lang.String"/>
+		<field name="field19" class="java.lang.String"/>
+		<field name="field20" class="java.lang.String"/>
+		<field name="field21" class="java.lang.String"/>
+		<field name="field22" class="java.lang.String"/>
+		<field name="field23" class="java.lang.String"/>
+		<field name="field24" class="java.lang.String"/>
+		<field name="field25" class="java.lang.String"/>
+		<field name="field26" class="java.lang.String"/>
+		<field name="field27" class="java.lang.String"/>
+		<field name="field28" class="java.lang.String"/>
+		<field name="field29" class="java.lang.String"/>
+		<field name="field30" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="CudDataSource" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="report.page.header" class="java.lang.String"/>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="515" height="25"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{report.page.header}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="15" width="515" height="1"/>
+			</line>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="115" splitType="Stretch">
+			<componentElement>
+				<reportElement x="0" y="0" width="515" height="85"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="CudDataSource">
+						<dataSourceExpression><![CDATA[$P{CudDataSource}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="85" width="515">
+						<textField>
+							<reportElement style="field" x="0" y="0" width="200" height="11"/>
+							<textElement>
+								<font fontName="SansSerif" size="8" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field1}]]></textFieldExpression>
+						</textField>
+						<staticText>
+							<reportElement x="380" y="0" width="80" height="11"/>
+							<textElement>
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<text><![CDATA[Totožnosť km]]></text>
+						</staticText>
+						<textField>
+							<reportElement style="textRight" x="0" y="11" width="200" height="11"/>
+							<textElement textAlignment="Left">
+								<font size="8" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field2}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement style="textRight" x="0" y="22" width="200" height="11"/>
+							<textElement textAlignment="Left">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field3}]]></textFieldExpression>
+						</textField>
+						<staticText>
+							<reportElement style="textRight" x="8" y="35" width="20" height="11"/>
+							<textElement textAlignment="Right">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<text><![CDATA[Od]]></text>
+						</staticText>
+						<textField>
+							<reportElement style="textRight" x="231" y="35" width="35" height="11"/>
+							<textElement textAlignment="Center">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field7}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement style="textRight" x="28" y="35" width="40" height="11"/>
+							<textElement textAlignment="Center">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field4}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement style="textRight" x="136" y="35" width="35" height="11"/>
+							<textElement textAlignment="Right">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field5}]]></textFieldExpression>
+						</textField>
+						<staticText>
+							<reportElement style="textRight" x="68" y="35" width="15" height="11"/>
+							<textElement textAlignment="Left">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<text><![CDATA[km]]></text>
+						</staticText>
+						<textField>
+							<reportElement style="textRight" x="171" y="35" width="60" height="11"/>
+							<textElement textAlignment="Center">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field6}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement style="textRight" x="266" y="35" width="60" height="11"/>
+							<textElement textAlignment="Center">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field8}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement style="textRight" x="355" y="35" width="25" height="11"/>
+							<textElement textAlignment="Center">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field9}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement style="textRight" x="380" y="35" width="40" height="11"/>
+							<textElement textAlignment="Left">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field10}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement style="textRight" x="420" y="35" width="20" height="11"/>
+							<textElement textAlignment="Left">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field11}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement style="textRight" x="440" y="35" width="30" height="11"/>
+							<textElement textAlignment="Left">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field12}]]></textFieldExpression>
+						</textField>
+						<staticText>
+							<reportElement style="textRight" x="8" y="46" width="20" height="11"/>
+							<textElement textAlignment="Right">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<text><![CDATA[Do]]></text>
+						</staticText>
+						<textField>
+							<reportElement style="textRight" x="28" y="46" width="40" height="11"/>
+							<textElement textAlignment="Center">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field13}]]></textFieldExpression>
+						</textField>
+						<staticText>
+							<reportElement style="textRight" x="68" y="46" width="15" height="11"/>
+							<textElement textAlignment="Left">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<text><![CDATA[km]]></text>
+						</staticText>
+						<textField>
+							<reportElement style="textRight" x="136" y="46" width="35" height="11"/>
+							<textElement textAlignment="Right">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field14}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement style="textRight" x="171" y="46" width="60" height="11"/>
+							<textElement textAlignment="Center">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field15}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement style="textRight" x="231" y="46" width="35" height="11"/>
+							<textElement textAlignment="Center">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field16}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement style="textRight" x="266" y="46" width="60" height="11"/>
+							<textElement textAlignment="Center">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field17}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement style="textRight" x="355" y="46" width="25" height="11"/>
+							<textElement textAlignment="Center">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field18}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement style="textRight" x="380" y="46" width="40" height="11"/>
+							<textElement textAlignment="Left">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field19}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement style="textRight" x="420" y="46" width="20" height="11"/>
+							<textElement textAlignment="Left">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field20}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement style="textRight" x="440" y="46" width="30" height="11"/>
+							<textElement textAlignment="Left">
+								<font size="8" pdfEncoding="Cp1250"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{field21}]]></textFieldExpression>
+						</textField>
+						<line>
+							<reportElement x="0" y="65" width="515" height="1"/>
+						</line>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+		</band>
+	</detail>
+</jasperReport>

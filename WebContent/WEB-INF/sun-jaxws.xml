@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<endpoints xmlns='http://java.sun.com/xml/ns/jax-ws/ri/runtime' version='2.0'>
+	<endpoint name='CudMetaWSService' implementation='sk.ditec.cud.meta.ws.CudMetaWS' url-pattern='/CudMetaWS' />
+	<endpoint name='CudWSService' implementation='sk.ditec.cud.ws.CudWS' url-pattern='/CudWS' />
+	<endpoint name='CudDataWSService' implementation='sk.ditec.cud.data.ws.CudDataWS' url-pattern='/CudDataWS' />
+    <endpoint name="KMDDataService" implementation="sk.ditec.kmd.data.ws.KMDDataService" url-pattern="/KMDDataService" />
+    <endpoint name="CskmdService" implementation="sk.ditec.cskmd.data.ws.CskmdService" url-pattern="/CskmdService" />
+	<endpoint name='ProcWSService' implementation='sk.ditec.process.ProcessWS' url-pattern='/ProcWS' />
+</endpoints>

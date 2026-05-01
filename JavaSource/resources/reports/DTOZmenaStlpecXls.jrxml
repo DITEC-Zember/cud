@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DTOZmenaStlpec" pageWidth="550" pageHeight="842" columnWidth="550" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+			<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="TableHeader" mode="Opaque" backcolor="#CCCCCC"/>
+	<style name="TableFooter" mode="Opaque" backcolor="#C0C0C0"/>
+	<subDataset name="UniTableDataSource">
+		<field name="field1" class="java.lang.String"/>
+		<field name="field2" class="java.lang.String"/>
+		<field name="field3" class="java.lang.String"/>
+		<field name="field4" class="java.lang.String"/>
+		<field name="field5" class="java.lang.String"/>
+		<field name="field6" class="java.lang.String"/>
+		<field name="header1" class="java.lang.String"/>
+		<field name="header2" class="java.lang.String"/>
+		<field name="header3" class="java.lang.String"/>
+		<field name="header4" class="java.lang.String"/>
+		<field name="header5" class="java.lang.String"/>
+		<field name="header6" class="java.lang.String"/>
+		<variable name="Column1" class="java.lang.String">
+			<variableExpression><![CDATA["text one"]]></variableExpression>
+		</variable>
+		<variable name="Column2" class="java.lang.String">
+			<variableExpression><![CDATA["text two"]]></variableExpression>
+		</variable>
+		<variable name="Column3" class="java.lang.String">
+			<variableExpression><![CDATA["text three"]]></variableExpression>
+		</variable>
+		<variable name="Column4" class="java.lang.String">
+			<variableExpression><![CDATA["text four"]]></variableExpression>
+		</variable>
+		<variable name="Column5" class="java.lang.String">
+			<variableExpression><![CDATA["text five"]]></variableExpression>
+		</variable>
+		<variable name="Column6" class="java.lang.String">
+			<variableExpression><![CDATA["text six"]]></variableExpression>
+		</variable>
+	</subDataset>
+	<parameter name="Report.page.header" class="java.lang.String"/>
+	<parameter name="UniTableDataSource" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="45" splitType="Stretch">
+			<componentElement>
+				<reportElement style="Table" positionType="Float" x="0" y="0" width="1300" height="45"/>
+				<c:table xmlns:c="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="UniTableDataSource">
+						<dataSourceExpression><![CDATA[$P{UniTableDataSource}]]></dataSourceExpression>
+					</datasetRun>
+					<c:column width="80">
+						<c:tableHeader height="18" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="80" height="18"/>
+								<box topPadding="2" leftPadding="10" bottomPadding="2" rightPadding="5">
+									<topPen lineWidth="0.0" lineStyle="Dashed"/>
+									<leftPen lineWidth="0.0" lineStyle="Dashed"/>
+									<bottomPen lineWidth="0.0" lineStyle="Dashed"/>
+									<rightPen lineWidth="0.0" lineStyle="Dashed"/>
+								</box>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true" pdfEncoding="Cp1250"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{header1}]]></textFieldExpression>
+							</textField>
+						</c:tableHeader>
+						<c:detailCell height="15" rowSpan="1">
+							<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="80" height="15"/>
+								<box topPadding="1" leftPadding="10" bottomPadding="2" rightPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="false" pdfEncoding="Cp1250"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{field1}]]></textFieldExpression>
+							</textField>
+						</c:detailCell>
+					</c:column>
+					<c:column width="50">
+						<c:tableHeader height="18" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="50" height="18"/>
+								<box topPadding="2" leftPadding="10" bottomPadding="2" rightPadding="5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true" pdfEncoding="Cp1250"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{header2}]]></textFieldExpression>
+							</textField>
+						</c:tableHeader>
+						<c:detailCell height="15" rowSpan="1">
+							<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="50" height="15"/>
+								<box topPadding="1" leftPadding="10" bottomPadding="2" rightPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="Arial" pdfEncoding="Cp1250"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{field2}]]></textFieldExpression>
+							</textField>
+						</c:detailCell>
+					</c:column>
+					<c:column width="80">
+						<c:tableHeader height="18" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="80" height="18"/>
+								<box topPadding="2" leftPadding="10" bottomPadding="2" rightPadding="5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true" pdfEncoding="Cp1250"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{header3}]]></textFieldExpression>
+							</textField>
+						</c:tableHeader>
+						<c:detailCell height="15" rowSpan="1">
+							<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="80" height="15"/>
+								<box topPadding="1" leftPadding="10" bottomPadding="2" rightPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="Arial" pdfEncoding="Cp1250"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{field3}]]></textFieldExpression>
+							</textField>
+						</c:detailCell>
+					</c:column>
+					<c:column width="180">
+						<c:tableHeader height="18" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="180" height="18"/>
+								<box topPadding="2" leftPadding="10" bottomPadding="2" rightPadding="5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true" pdfEncoding="Cp1250"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{header4}]]></textFieldExpression>
+							</textField>
+						</c:tableHeader>
+						<c:detailCell height="15" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="180" height="15"/>
+								<box topPadding="1" leftPadding="10" bottomPadding="2" rightPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="Arial" pdfEncoding="Cp1250"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{field4}]]></textFieldExpression>
+							</textField>
+						</c:detailCell>
+					</c:column>
+					<c:column width="300">
+						<c:tableHeader height="18" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="300" height="18"/>
+								<box topPadding="2" leftPadding="10" bottomPadding="2" rightPadding="5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true" pdfEncoding="Cp1250"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{header5}]]></textFieldExpression>
+							</textField>
+						</c:tableHeader>
+						<c:detailCell height="15" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="300" height="15"/>
+								<box topPadding="1" leftPadding="10" bottomPadding="2" rightPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="Arial" pdfEncoding="Cp1250"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{field5}]]></textFieldExpression>
+							</textField>
+						</c:detailCell>
+					</c:column>
+					<c:column width="300">
+						<c:tableHeader height="18" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="300" height="18"/>
+								<box topPadding="2" leftPadding="10" bottomPadding="2" rightPadding="5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true" pdfEncoding="Cp1250"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{header6}]]></textFieldExpression>
+							</textField>
+						</c:tableHeader>
+						<c:detailCell height="15" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="300" height="15"/>
+								<box topPadding="1" leftPadding="10" bottomPadding="2" rightPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="Arial" pdfEncoding="Cp1250"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{field6}]]></textFieldExpression>
+							</textField>
+						</c:detailCell>
+					</c:column>
+				</c:table>
+			</componentElement>
+		</band>
+	</detail>
+</jasperReport>

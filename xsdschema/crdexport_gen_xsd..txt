@@ -1,0 +1,13 @@
+Postup generovania classes:
+1. nakopirovat XSD schemy z adresara XSD do cud/xsdschema
+2. otvorit cmd v adresary JavaSource
+3. postupne spustat prikazy nizsie (treba upravit package, ak treba)
+
+//xsd schema ma chyby preto prepinac  -XautoNameResolution ,  -nv - ignore validation
+C:\JAVA\jdk1.7.0_45\bin\xjc.exe -XautoNameResolution  -p sk.ditec.crd.generated.tsi ../xsdschema/taf_cat_complete_sector_3.5.1.0.xsd
+
+C:\JAVA\jdk1.7.0_45\bin\xjc.exe -XautoNameResolution  -p sk.ditec.crd.generated.tsi ../xsdschema/LocationFileDatasetMessage_3_2_0_0.xsd
+
+
+
+

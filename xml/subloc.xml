@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:SubsidiaryLocationReplicationResponse xmlns:ns2="http://schema.refdata.li.cc.uic.org/types/v1">
+  
+  
+<ns2:Subsidiary_Location xmlns:ns2="http://schema.refdata.li.cc.uic.org/types/v1">
+    <ns2:CountryCodeISO>SE</ns2:CountryCodeISO>
+    <Responsible_IM_Code>0074</Responsible_IM_Code>
+    <Subsidiary_Location_Code>766</Subsidiary_Location_Code>
+    <ns2:Primary_Location>
+        <ns2:Country>
+            <ns2:CountryCodeISO>SE</ns2:CountryCodeISO>
+            <Country_UIC_Code>74</Country_UIC_Code>
+            <Country_Name_EN>Sweden</Country_Name_EN>
+            <Country_Name_FR>Suède</Country_Name_FR>
+            <Country_Name_DE>Schweden</Country_Name_DE>
+            <Sub_Loc_Code_Flag>true</Sub_Loc_Code_Flag>
+            <Add_Date>2011-11-15T11:28:44+01:00</Add_Date>
+            <Modified_Date>2011-11-15T16:02:38+01:00</Modified_Date>
+        </ns2:Country>
+        <Location_Code>1373</Location_Code>
+        <Start_Validity>2013-04-30T00:00:00+02:00</Start_Validity>
+        <End_Validity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <ResponsibleIM>
+            <Company_Name>Trafikverket</Company_Name>
+            <Company_Name_ASCII xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <Company_UIC_Code>0074</Company_UIC_Code>
+            <Company_URL>http://www.trafikverket.se/</Company_URL>
+            <ns2:Country>
+                <ns2:CountryCodeISO>SE</ns2:CountryCodeISO>
+                <Country_UIC_Code>74</Country_UIC_Code>
+                <Country_Name_EN>Sweden</Country_Name_EN>
+                <Country_Name_FR>Suède</Country_Name_FR>
+                <Country_Name_DE>Schweden</Country_Name_DE>
+                <Sub_Loc_Code_Flag>true</Sub_Loc_Code_Flag>
+                <Add_Date>2011-11-15T11:28:44+01:00</Add_Date>
+                <Modified_Date>2011-11-15T16:02:38+01:00</Modified_Date>
+            </ns2:Country>
+            <Start_Validity>2017-02-06T00:00:00+01:00</Start_Validity>
+            <End_Validity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <Company_Short_Name>TRAFIKVERKET</Company_Short_Name>
+            <Free_Text xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <ns2:Contact_Details>
+                <Contact_Person>Mr Tommy Jonsson</Contact_Person>
+                <Email>tommy.jonsson@trafikverket.se</Email>
+                <Phone_Number xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                <FAX_Number xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                <Address xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                <City xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                <Mobile_Number xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                <Postal_Code xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </ns2:Contact_Details>
+            <Passenger_Flag>false</Passenger_Flag>
+            <Freight_Flag>false</Freight_Flag>
+            <Infrastructure_Flag>true</Infrastructure_Flag>
+            <Other_Company_flag>false</Other_Company_flag>
+            <NE_Entity_Flag>false</NE_Entity_Flag>
+            <CE_Entity_Flag>false</CE_Entity_Flag>
+            <Add_Date>2011-11-15T11:35:55+01:00</Add_Date>
+            <Modified_Date>2019-08-23T12:57:32+02:00</Modified_Date>
+        </ResponsibleIM>
+        <Location_Name>Hallsbergs rangerbangård</Location_Name>
+        <Location_Name_ASCII>Hallsbergs rangerbangard</Location_Name_ASCII>
+        <NUTS_Code>3099</NUTS_Code>
+        <Container_Handling_Flag>true</Container_Handling_Flag>
+        <Handover_Point_Flag>false</Handover_Point_Flag>
+        <Freight_Possible_Flag>true</Freight_Possible_Flag>
+        <Freight_Start_Validity>2013-04-30T00:00:00+02:00</Freight_Start_Validity>
+        <Freight_End_Validity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <Passenger_Possible_Flag>false</Passenger_Possible_Flag>
+        <Passenger_Start_Validity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <Passenger_End_Validity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <Longitude>15.059333</Longitude>
+        <Latitude>59.058657</Latitude>
+        <Free_Text xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <Add_Date>2013-05-14T16:39:46+02:00</Add_Date>
+        <Modified_Date>2013-05-14T16:39:46+02:00</Modified_Date>
+    </ns2:Primary_Location>
+    <ns2:SubsidiaryType>
+        <Subsidiary_Type_Code>57</Subsidiary_Type_Code>
+        <Subsidiary_Type_Name>Intermodal Terminal</Subsidiary_Type_Name>
+        <IM_Flag>true</IM_Flag>
+        <Freight_RU_Flag>true</Freight_RU_Flag>
+        <Passenger_RU_Flag>false</Passenger_RU_Flag>
+        <Central_Entity_Flag>true</Central_Entity_Flag>
+        <National_Entity_Flag>true</National_Entity_Flag>
+        <Others_Flag>false</Others_Flag>
+        <Free_Text>Intermodal Terminal is a location which provides the space, equipment and operational environment under which the transfer of loading units (freight containers, swap bodies, semi-trailers or trailers) takes place</Free_Text>
+        <Add_Date>2020-08-31T13:57:07+02:00</Add_Date>
+        <Modified_Date>2020-08-31T13:57:07+02:00</Modified_Date>
+    </ns2:SubsidiaryType>
+    <Subsidiary_Location_Name>Hallsberg Kombi</Subsidiary_Location_Name>
+    <Start_Validity>2013-04-30T00:00:00+02:00</Start_Validity>
+    <End_Validity>2024-05-01T00:00:00+02:00</End_Validity>
+    <AllocationCompany>
+        <Company_Name>Trafikverket</Company_Name>
+        <Company_Name_ASCII xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <Company_UIC_Code>0074</Company_UIC_Code>
+        <Company_URL>http://www.trafikverket.se/</Company_URL>
+        <ns2:Country>
+            <ns2:CountryCodeISO>SE</ns2:CountryCodeISO>
+            <Country_UIC_Code>74</Country_UIC_Code>
+            <Country_Name_EN>Sweden</Country_Name_EN>
+            <Country_Name_FR>Suède</Country_Name_FR>
+            <Country_Name_DE>Schweden</Country_Name_DE>
+            <Sub_Loc_Code_Flag>true</Sub_Loc_Code_Flag>
+            <Add_Date>2011-11-15T11:28:44+01:00</Add_Date>
+            <Modified_Date>2011-11-15T16:02:38+01:00</Modified_Date>
+        </ns2:Country>
+        <Start_Validity>2017-02-06T00:00:00+01:00</Start_Validity>
+        <End_Validity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <Company_Short_Name>TRAFIKVERKET</Company_Short_Name>
+        <Free_Text xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <ns2:Contact_Details>
+            <Contact_Person>Mr Tommy Jonsson</Contact_Person>
+            <Email>tommy.jonsson@trafikverket.se</Email>
+            <Phone_Number xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <FAX_Number xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <Address xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <City xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <Mobile_Number xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <Postal_Code xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        </ns2:Contact_Details>
+        <Passenger_Flag>false</Passenger_Flag>
+        <Freight_Flag>false</Freight_Flag>
+        <Infrastructure_Flag>true</Infrastructure_Flag>
+        <Other_Company_flag>false</Other_Company_flag>
+        <NE_Entity_Flag>false</NE_Entity_Flag>
+        <CE_Entity_Flag>false</CE_Entity_Flag>
+        <Add_Date>2011-11-15T11:35:55+01:00</Add_Date>
+        <Modified_Date>2019-08-23T12:57:32+02:00</Modified_Date>
+    </AllocationCompany>
+    <Longitude>15.110152</Longitude>
+    <Latitude>59.067059</Latitude>
+    <Free_Text xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+    <Add_Date>2023-09-25T22:00:00+02:00</Add_Date>
+    <Modified_Date>2024-05-23T08:32:25+02:00</Modified_Date>
+</ns2:Subsidiary_Location>
+
+    
+</ns2:SubsidiaryLocationReplicationResponse>

@@ -1,0 +1,97 @@
+
+package sk.ditec.exp.rinfws;
+
+import java.io.Serializable;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+import sk.ditec.common.ws.AuthInfoWS;
+
+
+/**
+ * <p>Java class for getRinfDataServiceOp complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="getRinfDataServiceOp">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="AuthInfoWS" type="{urn:rinf.pis.ws.ditec.sk}authInfoWS" minOccurs="0"/>
+ *         &lt;element name="Op" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "getRinfDataServiceOp", propOrder = {
+    "authInfoWS",
+    "op"
+})
+public class GetRinfDataServiceOp
+    implements Serializable
+{
+
+    private final static long serialVersionUID = 1L;
+    @XmlElement(name = "AuthInfoWS")
+    protected AuthInfoWS authInfoWS;
+    @XmlElement(name = "Op")
+    protected String op;
+
+    /**
+     * Gets the value of the authInfoWS property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link AuthInfoWS }
+     *     
+     */
+    public AuthInfoWS getAuthInfoWS() {
+        return authInfoWS;
+    }
+
+    /**
+     * Sets the value of the authInfoWS property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link AuthInfoWS }
+     *     
+     */
+    public void setAuthInfoWS(AuthInfoWS value) {
+        this.authInfoWS = value;
+    }
+
+    /**
+     * Gets the value of the op property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getOp() {
+        return op;
+    }
+
+    /**
+     * Sets the value of the op property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setOp(String value) {
+        this.op = value;
+    }
+
+}
