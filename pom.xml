@@ -529,35 +529,6 @@
                 </configuration>
             </plugin>
 
-            <!-- Maven Antrun Plugin - kopírovanie a úprava context.xml z AIS projektu -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>process-context-xml</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <!-- Vytvorenie adresára META-INF ak neexistuje -->
-                                <mkdir dir="${project.build.directory}/${project.build.finalName}/META-INF"/>
-                                <!-- Kopírovanie context.xml z AIS projektu -->
-                                <copy file="D:/zsr/githubclone/ais/war/META-INF/context.xml" 
-                                      tofile="${project.build.directory}/${project.build.finalName}/META-INF/context.xml"
-                                      overwrite="true"/>
-                                <!-- Nahradenie {kontext} slovom cud v context.xml -->
-                                <replace file="${project.build.directory}/${project.build.finalName}/META-INF/context.xml"
-                                         token="{kontext}" 
-                                         value="cud"/>
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 </project>
