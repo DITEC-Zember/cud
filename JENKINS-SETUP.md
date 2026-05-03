@@ -1,5 +1,17 @@
 # Jenkins Pipeline - Inštrukcie pre nastavenie
 
+
+docker run -d --name jenkins -p 8082:8080 -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock --group-add 0 jenkins/jenkins:lts
+
+# Znova nainštaluj Docker CLI v Jenkinse:
+docker exec -u root jenkins apt-get update
+docker exec -u root jenkins apt-get install -y docker.io
+
+# Skopíruj znova Torque.properties:
+docker exec jenkins mkdir -p /var/jenkins_home/configs
+docker cp D:\zsr\githubclone\cud\JavaSource\Torque.properties jenkins:/var/jenkins_home/configs/Torque.properties
+
+
 ## Vytvorené súbory:
 - `Dockerfile` - Vlastný Docker obraz s Tomcat 8.5 + Maven + Java 8
 - `Jenkinsfile` - Pipeline s mountovaním Torque.properties z disku

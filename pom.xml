@@ -18,7 +18,8 @@
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
         <lib.dir>${project.basedir}/WebContent/WEB-INF/lib</lib.dir>
-        <ais.lib.dir>D:/zsr/githubclone/ais/war/WEB-INF/lib</ais.lib.dir>
+        <!-- Zmenené z D:/zsr/githubclone/ais/war/WEB-INF/lib na lokálny lib adresár -->
+        <ais.lib.dir>${lib.dir}</ais.lib.dir>
     </properties>
 
     <dependencies>
