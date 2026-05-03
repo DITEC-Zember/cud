@@ -24,6 +24,9 @@ pipeline {
             steps {
                 echo 'Building CUD application...'
                 sh 'mvn clean package'
+                
+                // Ulož WAR súbor pre neskoršie použitie
+                stash includes: 'target/*.war', name: 'war-file'
             }
         }
         
@@ -38,6 +41,8 @@ pipeline {
         stage('Archive') {
             steps {
                 echo 'Archiving artifacts...'
+                // Obnov WAR súbor z Build & Test stage
+                unstash 'war-file'
                 archiveArtifacts artifacts: 'target/*.war', fingerprint: true
             }
         }
