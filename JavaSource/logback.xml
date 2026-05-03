@@ -1,0 +1,46 @@
+<configuration>
+
+	<appender name="FILE-THREAD" class="ch.qos.logback.classic.sift.SiftingAppender">
+
+		<!-- This is MDC value -->
+		<!-- We will assign a value to 'logFileName' via Java code -->
+		<discriminator>
+			<key>logFileName</key>
+			<defaultValue>out</defaultValue>
+		</discriminator>
+
+		<sift>
+		  <!-- A standard RollingFileAppender, the log file is based on 'logFileName' at runtime  -->
+			<appender name="FILE-${logFileName}" 	class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+	    	<File>${catalina.home}\..\logs\${node.name}.cud.${logFileName}.log</File>
+        	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            	<FileNamePattern>${catalina.home}\..\logs\archiv\${node.name}.cud.${logFileName}.%d{yyyy-MM-dd}.log</FileNamePattern>
+        	</rollingPolicy>
+        	<layout class="ch.qos.logback.classic.PatternLayout">
+            	<Pattern>
+	                %date{dd MMM yyyy HH:mm:ss.SSS} %-5level \(%file:%line\) [%.25mdc{mdctext}] %msg %xEx{20} %n
+    	        </Pattern>
+        	</layout>
+    		</appender>
+		</sift>
+	</appender>
+  
+
+  	<logger name="sk.ditec" level="DEBUG" />
+  	<logger name="sk.zsr" level="DEBUG" />  	
+    <logger name="sk.ditec.org" level="INFO" />
+    <logger name="sk.ditec.com" level="INFO" />
+    <logger name="sk.ditec.javax" level="INFO" />
+    <logger name="sk.ditec.iam" level="INFO" /> <!-- AuthMod - neloguj IAM volania -->
+    <logger name="jdbc" level="ERROR" />
+    <logger name="com.sun" level="ERROR" />
+    <logger name="jdbc.sqlonly" level="ERROR" />
+    <logger name="jdbc.sqltiming" level="INFO" />
+    <root>
+        <level value="INFO" />
+        <appender-ref ref="FILE-THREAD" />
+    </root>
+   
+    
+</configuration>

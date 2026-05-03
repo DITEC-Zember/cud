@@ -529,34 +529,12 @@
                 </configuration>
             </plugin>
 
-            <!-- Maven Antrun Plugin - kopírovanie a úprava logback.xml z AIS projektu -->
+            <!-- Maven Antrun Plugin - kopírovanie a úprava context.xml z AIS projektu -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <version>3.1.0</version>
                 <executions>
-                    <execution>
-                        <id>process-logback-config</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <!-- Zmazať logback-test.xml ak existuje -->
-                                <delete file="${project.build.directory}/classes/logback-test.xml" 
-                                        quiet="true"/>
-                                <!-- Kopírovanie logback.xml z AIS projektu -->
-                                <copy file="D:/zsr/githubclone/ais/war/logback.xml" 
-                                      tofile="${project.build.directory}/classes/logback.xml"
-                                      overwrite="true"/>
-                                <!-- Nahradenie {kontext} slovom cud v logback.xml -->
-                                <replace file="${project.build.directory}/classes/logback.xml"
-                                         token="{kontext}" 
-                                         value="cud"/>
-                            </target>
-                        </configuration>
-                    </execution>
                     <execution>
                         <id>process-context-xml</id>
                         <phase>prepare-package</phase>
