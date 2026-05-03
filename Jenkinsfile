@@ -12,7 +12,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building CUD application...'
-                bat 'mvn clean package'
+                sh 'mvn clean package'
             }
         }
         
