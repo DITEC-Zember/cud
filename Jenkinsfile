@@ -34,35 +34,30 @@ pipeline {
             agent {
                 dockerfile {
                     filename 'Dockerfile'
-                    // Namountuj Torque.properties z hosťovského systému
-                    args '-v /root/.m2:/root/.m2 -v ${TORQUE_CONFIG_PATH}:/usr/local/tomcat/conf/Torque.properties:ro'
+                    // Namountuj Torque.properties do /config/ (entrypoint ho skopíruje do aplikácie)
+                    args '-v /root/.m2:/root/.m2 -v ${TORQUE_CONFIG_PATH}:/config/Torque.properties:ro'
                 }
             }
             steps {
                 echo 'Running integration tests with Tomcat...'
                 echo 'Using Torque.properties from: ${TORQUE_CONFIG_PATH}'
                 
-                // Over či Torque.properties existuje
-                sh 'cat /usr/local/tomcat/conf/Torque.properties | head -n 5'
-                
                 // Skopíruj WAR do Tomcat
                 sh 'cp target/*.war /usr/local/tomcat/webapps/cud.war'
                 
-                // Spusti Tomcat na pozadí
-                sh '''
-                    catalina.sh start
-                    echo "Waiting for Tomcat to start..."
-                    sleep 30
-                    
-                    # Over či Tomcat beží
-                    curl -f http://localhost:8080/cud/ || echo "Application not yet ready"
-                '''
+                // Entrypoint automaticky:
+                // 1. Počká na rozbalenie WAR
+                // 2. Skopíruje Torque.properties z /config/ do aplikácie
+                // 3. Reštartuje Tomcat
+                
+                echo "Waiting for application to start..."
+                sh 'sleep 40'
+                
+                // Over či aplikácia beží
+                sh 'curl -f http://localhost:8080/cud/ || echo "Application not yet ready"'
                 
                 // Spusti integračné testy (ak máš)
                 sh 'mvn verify -DskipUnitTests=true || echo "No integration tests configured yet"'
-                
-                // Zastav Tomcat
-                sh 'catalina.sh stop || true'
             }
         }
         

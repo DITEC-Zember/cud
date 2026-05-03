@@ -1,23 +1,32 @@
-FROM tomcat:7-jdk8
+FROM tomcat:8.5-jdk8
 
-# Nainštaluj Maven a curl pre health check
-RUN apt-get update && \
-    apt-get install -y maven curl && \
-    rm -rf /var/lib/apt/lists/*
+# Nainštaluj curl
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/* || true
 
-# Nastavenie Maven
+# Stiahni a nainštaluj Maven priamo z Apache
+ENV MAVEN_VERSION=3.8.8
 ENV MAVEN_HOME=/usr/share/maven
 ENV PATH=${MAVEN_HOME}/bin:${PATH}
 
-# Vytvor conf adresár pre Torque.properties (bude namountovaný zvonku)
-RUN mkdir -p /usr/local/tomcat/conf
+RUN curl -fsSL https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
+    | tar xz -C /usr/share && \
+    mv /usr/share/apache-maven-${MAVEN_VERSION} ${MAVEN_HOME} && \
+    ln -s ${MAVEN_HOME}/bin/mvn /usr/bin/mvn
 
-# Nastav CATALINA_OPTS aby Torque.properties bol viditeľný pre aplikáciu
-ENV CATALINA_OPTS="-Dtorque.configuration=/usr/local/tomcat/conf/Torque.properties"
+# Vytvor adresár pre externú konfiguráciu
+RUN mkdir -p /config
+
+# Skopíruj entrypoint script
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Nastav CATALINA_OPTS
+ENV CATALINA_OPTS="-Dtorque.configuration=/usr/local/tomcat/webapps/cud/WEB-INF/classes/Torque.properties"
 
 WORKDIR /app
 
 # Exponuj Tomcat port
 EXPOSE 8080
 
-CMD ["catalina.sh", "run"]
+# Použij custom entrypoint
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
