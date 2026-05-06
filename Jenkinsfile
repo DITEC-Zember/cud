@@ -15,7 +15,8 @@ pipeline {
             agent {
                 dockerfile {
                     filename 'Dockerfile'
-                    args '-v /root/.m2:/root/.m2'
+                    args '--entrypoint=\'\' -v /root/.m2:/root/.m2'
+                    reuseNode true
                 }
             }
             steps {
@@ -31,7 +32,8 @@ pipeline {
             agent {
                 dockerfile {
                     filename 'Dockerfile'
-                    args '-v /root/.m2:/root/.m2 -v ${TORQUE_CONFIG_PATH}:/config/Torque.properties:ro'
+                    args '--entrypoint=\'\' -u 0:0 -v /root/.m2:/root/.m2 -v ${TORQUE_CONFIG_PATH}:/config/Torque.properties:ro'
+                    reuseNode true
                 }
             }
             steps {
