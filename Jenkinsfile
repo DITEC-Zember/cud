@@ -95,6 +95,22 @@ pipeline {
                     // Publikuj výsledky integračných testov
                     junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
                     
+                    // Výpis Tomcat logov pre diagnostiku
+                    echo 'Searching for Tomcat logs...'
+                    sh '''
+                        # Nájdi Tomcat logs
+                        if [ -d /usr/local/tomcat/logs ]; then
+                            echo "=== Tomcat catalina.out ==="
+                            tail -200 /usr/local/tomcat/logs/catalina.out || echo "No catalina.out"
+                            echo "=== Tomcat localhost logs ==="
+                            tail -100 /usr/local/tomcat/logs/localhost.*.log 2>/dev/null || echo "No localhost logs"
+                        else
+                            echo "Tomcat logs not found in /usr/local/tomcat/logs"
+                            echo "Searching for Tomcat installation..."
+                            find / -name "catalina.out" 2>/dev/null | head -5 || echo "No catalina.out found"
+                        fi
+                    '''
+                    
                     // Zastaviť Tomcat
                     sh 'catalina.sh stop || true'
                 }
