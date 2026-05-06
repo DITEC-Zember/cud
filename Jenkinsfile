@@ -28,11 +28,28 @@ pipeline {
             }
         }
         
+        stage('Prepare Configuration') {
+            steps {
+                echo 'Preparing Torque.properties for integration tests...'
+                sh """
+                    echo "Copying Torque.properties from ${TORQUE_CONFIG_PATH}"
+                    if [ -f ${TORQUE_CONFIG_PATH} ]; then
+                        cp ${TORQUE_CONFIG_PATH} JavaSource/Torque.properties
+                        echo "Torque.properties copied successfully"
+                        ls -la JavaSource/Torque.properties
+                    else
+                        echo "ERROR: ${TORQUE_CONFIG_PATH} not found!"
+                        exit 1
+                    fi
+                """
+            }
+        }
+        
         stage('Integration Tests') {
             agent {
                 dockerfile {
                     filename 'Dockerfile'
-                    args '--entrypoint=\'\' -u 0:0 -v /root/.m2:/root/.m2 -v ${TORQUE_CONFIG_PATH}:/config/Torque.properties:ro'
+                    args '--entrypoint=\'\' -u 0:0 -v /root/.m2:/root/.m2'
                     reuseNode true
                 }
             }
@@ -40,17 +57,6 @@ pipeline {
                 echo 'Deploying application and running integration tests...'
                 
                 script {
-                    // Skopíruj Torque.properties na správne miesto (keďže entrypoint je vypnutý)
-                    sh '''
-                        if [ -f /config/Torque.properties ]; then
-                            echo "Copying Torque.properties from /config/ to JavaSource/"
-                            cp /config/Torque.properties JavaSource/Torque.properties
-                            echo "Torque.properties copied successfully"
-                        else
-                            echo "ERROR: Torque.properties not found at /config/Torque.properties"
-                            exit 1
-                        fi
-                    '''
                     
                     // Prebuduj WAR so správnym Torque.properties (package spustí process-resources)
                     echo 'Rebuilding WAR with correct Torque.properties...'
