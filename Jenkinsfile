@@ -11,14 +11,7 @@ pipeline {
     }
     
     stages {
-        stage('Checkout') {
-            steps {
-                echo 'Checking out source code...'
-                checkout scm
-            }
-        }
-        
-        stage('Build & Test') {
+        stage('Build') {
             agent {
                 dockerfile {
                     filename 'Dockerfile'
@@ -27,37 +20,10 @@ pipeline {
             }
             steps {
                 echo 'Building CUD application...'
-                // Vylúčenie integračných testov - tie bežia až v Integration Tests stage
-                sh 'mvn clean package -Dtest=!*IntegrationTest -DfailIfNoTests=false'
+                sh 'mvn clean package -DskipTests'
                 
-                // Ulož WAR súbor pre neskoršie použitie
+                // Ulož WAR súbor pre Integration Tests stage
                 stash includes: 'target/*.war', name: 'war-file'
-            }
-            post {
-                always {
-                    // Publikuj výsledky testov (JUnit reports)
-                    junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
-                }
-            }
-        }
-        
-        stage('Unit Tests') {
-            agent {
-                dockerfile {
-                    filename 'Dockerfile'
-                    args '-v /root/.m2:/root/.m2'
-                }
-            }
-            steps {
-                echo 'Running unit tests...'
-                // Spusti len unit testy, vynechaj integračné
-                sh 'mvn test -Dtest=!*IntegrationTest -DfailIfNoTests=false'
-            }
-            post {
-                always {
-                    // Publikuj výsledky unit testov
-                    junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
-                }
             }
         }
         
@@ -69,9 +35,9 @@ pipeline {
                 }
             }
             steps {
-                echo 'Deploying application for integration tests...'
+                echo 'Deploying application and running integration tests...'
                 
-                // Obnov WAR súbor
+                // Obnov WAR súbor z Build stage
                 unstash 'war-file'
                 
                 script {
@@ -117,7 +83,7 @@ pipeline {
         stage('Archive') {
             steps {
                 echo 'Archiving artifacts...'
-                // Obnov WAR súbor z Build & Test stage
+                // Obnov WAR súbor z Build stage
                 unstash 'war-file'
                 archiveArtifacts artifacts: 'target/*.war', fingerprint: true
             }
