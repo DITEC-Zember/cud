@@ -57,6 +57,18 @@ pipeline {
                 echo 'Deploying application and running integration tests...'
                 
                 script {
+                    // Skopíruj Torque.properties do Tomcat conf adresára
+                    echo 'Copying Torque.properties to Tomcat conf directory...'
+                    sh '''
+                        if [ -f JavaSource/Torque.properties ]; then
+                            cp JavaSource/Torque.properties /usr/local/tomcat/conf/Torque.properties
+                            echo "Torque.properties copied to /usr/local/tomcat/conf/"
+                            ls -la /usr/local/tomcat/conf/Torque.properties
+                        else
+                            echo "ERROR: JavaSource/Torque.properties not found!"
+                            exit 1
+                        fi
+                    '''
                     
                     // Prebuduj WAR so správnym Torque.properties (package spustí process-resources)
                     echo 'Rebuilding WAR with correct Torque.properties...'
