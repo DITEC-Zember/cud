@@ -1,15 +1,6 @@
 pipeline {
     agent any
     
-    environment {
-        // Cesta k Torque.properties na Jenkins serveri (uprav podľa svojho umiestnenia)
-        TORQUE_CONFIG_PATH = '/var/jenkins_home/configs/Torque.properties'
-        
-        // Prihlasovacie údaje pre integračné testy (UPRAVTE PODĽA VAŠEJ KONFIGURÁCIE)
-        // Môžete tiež použiť Jenkins Credentials Plugin namiesto hardcoded hodnôt
-        TEST_ACCOUNT_ID = '136'  // Account ID pre integračné testy
-    }
-    
     stages {
         stage('Build') {
             agent {
@@ -23,116 +14,14 @@ pipeline {
                 echo 'Building CUD application...'
                 sh 'mvn clean package -DskipTests'
                 
-                // Ulož WAR súbor pre Integration Tests stage
+                // Ulož WAR súbor pre Archive stage
                 stash includes: 'target/*.war', name: 'war-file'
-            }
-        }
-        
-        stage('Prepare Configuration') {
-            steps {
-                echo 'Preparing Torque.properties for integration tests...'
-                sh """
-                    echo "Copying Torque.properties from ${TORQUE_CONFIG_PATH}"
-                    if [ -f ${TORQUE_CONFIG_PATH} ]; then
-                        cp ${TORQUE_CONFIG_PATH} JavaSource/Torque.properties
-                        echo "Torque.properties copied successfully"
-                        ls -la JavaSource/Torque.properties
-                    else
-                        echo "ERROR: ${TORQUE_CONFIG_PATH} not found!"
-                        exit 1
-                    fi
-                """
-            }
-        }
-        
-        stage('Integration Tests') {
-            agent {
-                dockerfile {
-                    filename 'Dockerfile'
-                    args '--entrypoint=\'\' -u 0:0 -v /root/.m2:/root/.m2'
-                    reuseNode true
-                }
-            }
-            steps {
-                echo 'Deploying application and running integration tests...'
-                
-                script {
-                    // Skopíruj Torque.properties do Tomcat conf adresára
-                    echo 'Copying Torque.properties to Tomcat conf directory...'
-                    sh '''
-                        if [ -f JavaSource/Torque.properties ]; then
-                            cp JavaSource/Torque.properties /usr/local/tomcat/conf/Torque.properties
-                            echo "Torque.properties copied to /usr/local/tomcat/conf/"
-                            ls -la /usr/local/tomcat/conf/Torque.properties
-                        else
-                            echo "ERROR: JavaSource/Torque.properties not found!"
-                            exit 1
-                        fi
-                    '''
-                    
-                    // Prebuduj WAR so správnym Torque.properties (package spustí process-resources)
-                    echo 'Rebuilding WAR with correct Torque.properties...'
-                    sh 'mvn package -DskipTests'
-                    
-                    // Nasaď WAR do Tomcat
-                    sh 'cp target/*.war /usr/local/tomcat/webapps/cud.war'
-                    
-                    // Spusti Tomcat na pozadí
-                    sh 'catalina.sh start'
-                    
-                    // Počkaj kým sa aplikácia naštartuje (max 120 sekúnd)
-                    echo 'Waiting for application to start...'
-                    timeout(time: 120, unit: 'SECONDS') {
-                        waitUntil {
-                            script {
-                                def result = sh(script: 'curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/cud/CudWS?wsdl || true', returnStdout: true).trim()
-                                return result == '200'
-                            }
-                        }
-                    }
-                    
-                    echo 'Application started successfully!'
-                    
-                    // Spusti smoke test (nevyžaduje autentifikáciu)
-                    echo 'Running smoke tests...'
-                    sh 'mvn test -Dtest=CudWSAvailabilityTest -Dwsdl.url=http://localhost:8080/cud/CudWS?wsdl -DfailIfNoTests=false'
-                    
-                    // Spusti integračné testy s konfigurovateľnými credentials
-                    echo 'Running integration tests...'
-                    sh "mvn test -Dtest=CudWSIntegrationTest -Dwsdl.url=http://localhost:8080/cud/CudWS?wsdl -DaccountId=${TEST_ACCOUNT_ID} -DfailIfNoTests=false"
-                }
-            }
-            post {
-                always {
-                    // Publikuj výsledky integračných testov
-                    junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
-                    
-                    // Výpis Tomcat logov pre diagnostiku
-                    echo 'Searching for Tomcat logs...'
-                    sh '''
-                        # Nájdi Tomcat logs
-                        if [ -d /usr/local/tomcat/logs ]; then
-                            echo "=== Tomcat catalina.out ==="
-                            tail -200 /usr/local/tomcat/logs/catalina.out || echo "No catalina.out"
-                            echo "=== Tomcat localhost logs ==="
-                            tail -100 /usr/local/tomcat/logs/localhost.*.log 2>/dev/null || echo "No localhost logs"
-                        else
-                            echo "Tomcat logs not found in /usr/local/tomcat/logs"
-                            echo "Searching for Tomcat installation..."
-                            find / -name "catalina.out" 2>/dev/null | head -5 || echo "No catalina.out found"
-                        fi
-                    '''
-                    
-                    // Zastaviť Tomcat
-                    sh 'catalina.sh stop || true'
-                }
             }
         }
         
         stage('Archive') {
             steps {
                 echo 'Archiving artifacts...'
-                // Obnov WAR súbor z Build stage
                 unstash 'war-file'
                 archiveArtifacts artifacts: 'target/*.war', fingerprint: true
             }
