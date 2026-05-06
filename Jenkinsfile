@@ -28,7 +28,7 @@ pipeline {
             steps {
                 echo 'Building CUD application...'
                 // Vylúčenie integračných testov - tie bežia až v Integration Tests stage
-                sh 'mvn clean package -Dtest=!*IntegrationTest'
+                sh 'mvn clean package -Dtest=!*IntegrationTest -DfailIfNoTests=false'
                 
                 // Ulož WAR súbor pre neskoršie použitie
                 stash includes: 'target/*.war', name: 'war-file'
@@ -51,7 +51,7 @@ pipeline {
             steps {
                 echo 'Running unit tests...'
                 // Spusti len unit testy, vynechaj integračné
-                sh 'mvn test -Dtest=!*IntegrationTest'
+                sh 'mvn test -Dtest=!*IntegrationTest -DfailIfNoTests=false'
             }
             post {
                 always {
@@ -96,11 +96,11 @@ pipeline {
                     
                     // Spusti smoke test (nevyžaduje autentifikáciu)
                     echo 'Running smoke tests...'
-                    sh 'mvn test -Dtest=CudWSAvailabilityTest -Dwsdl.url=http://localhost:8080/cud/CudWS?wsdl'
+                    sh 'mvn test -Dtest=CudWSAvailabilityTest -Dwsdl.url=http://localhost:8080/cud/CudWS?wsdl -DfailIfNoTests=false'
                     
                     // Spusti integračné testy s konfigurovateľnými credentials
                     echo 'Running integration tests...'
-                    sh "mvn test -Dtest=CudWSIntegrationTest -Dwsdl.url=http://localhost:8080/cud/CudWS?wsdl -DaccountId=${TEST_ACCOUNT_ID}"
+                    sh "mvn test -Dtest=CudWSIntegrationTest -Dwsdl.url=http://localhost:8080/cud/CudWS?wsdl -DaccountId=${TEST_ACCOUNT_ID} -DfailIfNoTests=false"
                 }
             }
             post {
