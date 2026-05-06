@@ -27,6 +27,8 @@ public class CudWSIntegrationTest {
     // Použitie system properties pre flexibilitu - môže sa prepísať cez -Dwsdl.url=... a -DaccountId=...
     private static final String WSDL_URL = System.getProperty("wsdl.url", "http://localhost:8081/cud/CudWS?wsdl");
     private static final String ACCOUNT_ID = System.getProperty("accountId", "136");
+    private static final String NAMESPACE_URI = "urn:ws.server.cud.zsr.ditec.sk";
+    private static final String SERVICE_NAME = "CudWSService";
 
 	private CudWSRemote cudWS;
 
