@@ -10,7 +10,7 @@
     <version>1.0.0</version>
     <packaging>war</packaging>
 
-    <name>CUD - Centrálna Úradná Databáza</name>
+    <name>CUD</name>
     <description>CUD web application</description>
 
     <properties>
@@ -439,6 +439,14 @@
             <version>1.0</version>
             <scope>system</scope>
             <systemPath>${ais.lib.dir}/ditec-c3po.jar</systemPath>
+        </dependency>
+        
+        <!-- Testing dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
