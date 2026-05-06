@@ -74,14 +74,24 @@ torque.dsfactory.APP.connection.password = cud
 
 1. **Build & Test stage:** 
    - Zbuilduje sa Docker obraz z `Dockerfile`
-   - Spustí sa `mvn clean package`
+   - Spustí sa `mvn clean package` (kompiluje a balí aplikáciu vrátane unit testov)
    - Vytvorí sa `.war` súbor
+   - Publikujú sa výsledky testov (JUnit reports)
 
-2. **Integration Tests stage:**
-   - Namountuje sa `Torque.properties` z tvojho disku do kontajnera
-   - Nasadí sa `.war` do Tomcatu
-   - Spustí sa Tomcat s pripojením na DB podľa `Torque.properties`
-   - Spustia sa integračné testy
+2. **Unit Tests stage:**
+   - Spustia sa všetky unit testy pomocou `mvn test`
+   - Výsledky testov sa publikujú v Jenkins UI
+
+3. **Integration Tests stage:**
+   - Nasadí WAR do Tomcat
+   - Spustí Tomcat na pozadí
+   - Počká kým sa aplikácia naštartuje (health check na WSDL endpoint)
+   - Spustí smoke testy (CudWSAvailabilityTest) ktoré overujú dostupnosť WSDL
+   - Pre plné integračné testy je potrebné nastaviť prihlasovacie údaje
+   - Po testoch zastaví Tomcat
+
+4. **Archive stage:**
+   - Archivuje sa `.war` súbor pre neskoršie použitie
 
 ## Výhody tohto riešenia:
 

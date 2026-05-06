@@ -13,7 +13,8 @@ import java.net.URL;
  */
 public class CudWSAvailabilityTest {
 
-	private static final String WSDL_URL = "http://localhost:8081/cud/CudWS?wsdl";
+	// Použitie system property pre flexibilitu - defaultne localhost:8081, ale môže sa prepísať cez -Dwsdl.url=...
+	private static final String WSDL_URL = System.getProperty("wsdl.url", "http://localhost:8081/cud/CudWS?wsdl");
 
 	// @Test
 	public static void main(String[] args) throws Exception {

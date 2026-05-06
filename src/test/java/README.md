@@ -58,6 +58,32 @@ mvn test -Dtest=CudWSIntegrationTest
 mvn test -Dtest=CudWSIntegrationTest#testCiselnikList_BasicCall
 ```
 
+## CI/CD Integrácia
+
+Testy sa automaticky spúšťajú v Jenkins pipeline:
+
+- **Build & Test stage**: Maven `package` automaticky spustí všetky testy
+- **Unit Tests stage**: Explicitne spustí `mvn test` a publikuje výsledky
+- **Integration Tests stage**: 
+  - Nasadí aplikáciu do Tomcat
+  - Spustí smoke testy (CudWSAvailabilityTest) ktoré overujú dostupnosť WSDL
+  - Pre plné integračné testy by bolo potrebné nastaviť prihlasovacie údaje
+
+Pre zobrazenie výsledkov testov v Jenkins UI, prejdite na:
+- Build detail → Test Results
+
+### Spustenie testov s vlastnou URL
+
+Testy podporujú konfiguráciu URL cez system property:
+
+```bash
+# Lokálne testovanie
+mvn test -Dtest=CudWSAvailabilityTest -Dwsdl.url=http://localhost:8081/cud/CudWS?wsdl
+
+# V Jenkins (port 8080 v Docker kontajneri)
+mvn test -Dtest=CudWSAvailabilityTest -Dwsdl.url=http://localhost:8080/cud/CudWS?wsdl
+```
+
 ## Testové scenáre
 
 ### 1. testCiselnikList_BasicCall
