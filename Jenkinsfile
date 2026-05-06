@@ -70,45 +70,36 @@ pipeline {
             agent {
                 dockerfile {
                     filename 'Dockerfile'
-                    // Mount workspace config/ -> Docker /config/
                     // Vypneme entrypoint aby sme mali kontrolu nad spustením
                     // -u 0:0 spustí container ako root (potrebné pre zápis do /usr/local/tomcat/webapps/)
-                    args '--entrypoint=\'\' -u 0:0 -v ${WORKSPACE}/config:/config:ro -v /root/.m2:/root/.m2'
+                    // reuseNode + volumes-from zabezpečí prístup k workspace
+                    args '--entrypoint=\'\' -u 0:0 -v /root/.m2:/root/.m2'
                     reuseNode true
                 }
             }
             steps {
                 echo 'Running integration tests...'
                 
-                // DEBUG: Over či config adresár existuje
-                sh '''
-                    echo "=== DEBUG: Checking workspace and config ==="
-                    echo "WORKSPACE: ${WORKSPACE}"
-                    ls -la ${WORKSPACE}/ || true
-                    echo "=== Checking config directory ==="
-                    ls -la ${WORKSPACE}/config/ || true
-                    echo "=== Checking /config in Docker ==="
-                    ls -la /config/ || true
-                '''
-                
                 // Obnov WAR z Build stage
                 unstash 'war-file'
                 
                 script {
-                    // Použijem logiku z entrypoint.sh
+                    // Použijem logiku z entrypoint.sh (ale priamo z workspace/config/)
                     sh '''
                         echo "Extracting WAR and configuring Torque.properties..."
                         mkdir -p /usr/local/tomcat/webapps/cud
                         cd /usr/local/tomcat/webapps/cud
                         jar -xf ${WORKSPACE}/target/*.war
                         
-                        # Skopíruj Torque.properties (ako v entrypoint.sh)
-                        if [ -f /config/Torque.properties ]; then
-                            echo "Copying Torque.properties from /config/ to application..."
-                            cp /config/Torque.properties /usr/local/tomcat/webapps/cud/WEB-INF/classes/Torque.properties
-                            echo "Torque.properties configured successfully!"
+                        # Skopíruj Torque.properties priamo z workspace (nie cez /config mount)
+                        if [ -f ${WORKSPACE}/config/Torque.properties ]; then
+                            echo "Copying Torque.properties from workspace to application..."
+                            cp ${WORKSPACE}/config/Torque.properties /usr/local/tomcat/webapps/cud/WEB-INF/classes/Torque.properties
+                            echo "✓ Torque.properties configured successfully!"
+                            ls -la /usr/local/tomcat/webapps/cud/WEB-INF/classes/Torque.properties
                         else
-                            echo "ERROR: /config/Torque.properties not found!"
+                            echo "ERROR: ${WORKSPACE}/config/Torque.properties not found!"
+                            ls -la ${WORKSPACE}/config/ || true
                             exit 1
                         fi
                     '''
