@@ -39,19 +39,22 @@ pipeline {
             steps {
                 echo 'Deploying application and running integration tests...'
                 
-                // Obnov WAR súbor z Build stage
-                unstash 'war-file'
-                
                 script {
                     // Skopíruj Torque.properties na správne miesto (keďže entrypoint je vypnutý)
                     sh '''
                         if [ -f /config/Torque.properties ]; then
                             echo "Copying Torque.properties from /config/ to JavaSource/"
                             cp /config/Torque.properties JavaSource/Torque.properties
+                            echo "Torque.properties copied successfully"
                         else
-                            echo "WARNING: Torque.properties not found at /config/Torque.properties"
+                            echo "ERROR: Torque.properties not found at /config/Torque.properties"
+                            exit 1
                         fi
                     '''
+                    
+                    // Prebuduj WAR so správnym Torque.properties (package spustí process-resources)
+                    echo 'Rebuilding WAR with correct Torque.properties...'
+                    sh 'mvn package -DskipTests'
                     
                     // Nasaď WAR do Tomcat
                     sh 'cp target/*.war /usr/local/tomcat/webapps/cud.war'
