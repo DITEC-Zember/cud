@@ -132,11 +132,7 @@ environment {
 docker build -t cud .
 
 # Spusti kontajner, zbuilduj projekt a nasaď do Tomcatu
-docker run -p 8080:8080 \
-  -v D:/zsr/githubclone/cud:/app \
-  -v D:/zsr/githubclone/cud/JavaSource/Torque.properties:/usr/local/tomcat/conf/Torque.properties:ro \
-  --name cud cud \
-  bash -c "cd /app && mvn clean package && cp target/*.war /usr/local/tomcat/webapps/cud.war && catalina.sh run"
+docker run -p 8080:8080 -v D:/zsr/githubclone/cud:/app -v D:/zsr/githubclone/cud/JavaSource/Torque.properties:/usr/local/tomcat/conf/Torque.properties:ro --name cud cud bash -c "cd /app && mvn clean package && cp target/*.war /usr/local/tomcat/webapps/cud.war && catalina.sh run"
 ```
 
 ### Možnosť 2: Zbuilduj lokálne, potom deploy (odporúčané)
