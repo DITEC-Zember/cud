@@ -56,26 +56,3 @@ Keď potrebuješ zmeniť databázu:
    docker cp D:\configs\Torque-test.properties jenkins:/var/jenkins_home/configs/Torque.properties
    ```
 3. Spusti pipeline znova - použije aktuálny súbor
-
-## Príklad Torque.properties s viacerými DB:
-
-```properties
-# === AKTÍVNA DATABÁZA ===
-# ZSRDEV - CUD
-torque.dsfactory.APP.connection.url = jdbc:log4jdbc:oracle:thin:@(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = dev-oracle19.intra.ditec.sk)(PORT = 1521)) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = zsrdev.intra.ditec.sk)))
-torque.dsfactory.APP.connection.user = cud
-torque.dsfactory.APP.connection.password = cud
-
-# === ZAKOMENTOVANÉ (NEAKTÍVNE) ===
-# SSD - CUD
-#torque.dsfactory.APP.connection.url = jdbc:log4jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=kistest.intra.ditec.sk)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ssd.intra.ditec.sk)))
-#torque.dsfactory.APP.connection.user = cud
-#torque.dsfactory.APP.connection.password = cud
-
-# CUDT - CUD
-#torque.dsfactory.APP.connection.url = jdbc:log4jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=rhlkistdbcud)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SID=CUDT)))
-#torque.dsfactory.APP.connection.user = cud
-#torque.dsfactory.APP.connection.password = CUD2022
-```
-
-Na prepnutie: odkomentuj požadovanú DB a zakomentuj aktuálnu.
