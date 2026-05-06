@@ -49,7 +49,8 @@ pipeline {
                     filename 'Dockerfile'
                     // Mount workspace config/ -> Docker /config/
                     // Vypneme entrypoint aby sme mali kontrolu nad spustením
-                    args '--entrypoint=\'\' -v ${WORKSPACE}/config:/config:ro -v /root/.m2:/root/.m2'
+                    // -u 0:0 spustí container ako root (potrebné pre zápis do /usr/local/tomcat/webapps/)
+                    args '--entrypoint=\'\' -u 0:0 -v ${WORKSPACE}/config:/config:ro -v /root/.m2:/root/.m2'
                     reuseNode true
                 }
             }
