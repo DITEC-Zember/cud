@@ -26,20 +26,43 @@ pipeline {
         stage('Prepare Configuration') {
             steps {
                 echo 'Preparing configuration for integration tests...'
-                sh '''
-                    # Vytvor config adresár v workspace
-                    mkdir -p config
+                script {
+                    // Vytvor config adresár v workspace  
+                    sh 'mkdir -p config'
                     
-                    # Skopíruj Torque.properties z Jenkins
-                    if [ -f ${TORQUE_CONFIG_PATH} ]; then
-                        cp ${TORQUE_CONFIG_PATH} config/Torque.properties
-                        echo "Torque.properties copied to workspace config/"
-                        ls -la config/Torque.properties
-                    else
-                        echo "ERROR: ${TORQUE_CONFIG_PATH} not found!"
-                        exit 1
-                    fi
-                '''
+                    // Skopíruj Torque.properties z Jenkins workspace
+                    // Poznámka: ${WORKSPACE} je v Jenkins volume, čo je dostupné aj pre Docker host
+                    sh """
+                        if [ -f ${TORQUE_CONFIG_PATH} ]; then
+                            cp ${TORQUE_CONFIG_PATH} config/Torque.properties
+                            echo "✓ Torque.properties copied successfully"
+                            ls -la config/Torque.properties
+                        else
+                            echo "⚠ WARNING: ${TORQUE_CONFIG_PATH} not found!"
+                            echo "Creating placeholder Torque.properties..."
+                            echo "Please configure: docker cp Torque.properties jenkins:/var/jenkins_home/configs/"
+                            
+                            # Skopíruj z JavaSource ako fallback
+                            if [ -f JavaSource/Torque.properties ]; then
+                                cp JavaSource/Torque.properties config/Torque.properties
+                                echo "✓ Using Torque.properties from JavaSource/"
+                            else
+                                echo "ERROR: No Torque.properties found anywhere!"
+                                exit 1
+                            fi
+                        fi
+                        
+                        # Overenie že súbor existuje
+                        if [ ! -f config/Torque.properties ]; then
+                            echo "ERROR: config/Torque.properties was not created!"
+                            exit 1
+                        fi
+                        
+                        echo "=== Torque.properties ready in workspace ==="
+                        pwd
+                        ls -la config/
+                    """
+                }
             }
         }
         
@@ -56,6 +79,17 @@ pipeline {
             }
             steps {
                 echo 'Running integration tests...'
+                
+                // DEBUG: Over či config adresár existuje
+                sh '''
+                    echo "=== DEBUG: Checking workspace and config ==="
+                    echo "WORKSPACE: ${WORKSPACE}"
+                    ls -la ${WORKSPACE}/ || true
+                    echo "=== Checking config directory ==="
+                    ls -la ${WORKSPACE}/config/ || true
+                    echo "=== Checking /config in Docker ==="
+                    ls -la /config/ || true
+                '''
                 
                 // Obnov WAR z Build stage
                 unstash 'war-file'
