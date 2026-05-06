@@ -537,6 +537,19 @@
                 </configuration>
             </plugin>
 
+            <!-- Maven Surefire Plugin - pre unit testy -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <!-- Vylúč integračné testy z bežného 'mvn test' -->
+                    <excludes>
+                        <exclude>**/*IntegrationTest.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 </project>

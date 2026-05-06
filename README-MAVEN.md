@@ -31,15 +31,32 @@ mvn clean package
 
 WAR súbor bude vytvorený v `target/cud-1.0.0.war`
 
+**Poznámka:** Integračné testy sú automaticky vylúčené - spúšťajú sa len unit testy.
+
 ### Vyčistenie build výstupov
 ```bash
 mvn clean
 ```
 
-### Preskočenie testov (ak sa pridajú)
+### Spustenie unit testov
 ```bash
-mvn clean package -DskipTests
+mvn test
 ```
+
+**Poznámka:** Integračné testy (CudWSIntegrationTest) sú automaticky vylúčené, pretože vyžadujú bežiacu aplikáciu.
+
+### Spustenie integračných testov
+```bash
+# Najprv musí bežať aplikácia na localhost:8081
+mvn test -Dtest=*IntegrationTest
+
+# S vlastnými credentials a URL
+mvn test -Dtest=CudWSIntegrationTest \
+  -Dwsdl.url=http://localhost:8081/cud/CudWS?wsdl \
+  -DaccountId=136
+```
+
+**Poznámka:** Integračné testy sa automaticky spúšťajú v Jenkins pipeline v **Integration Tests** stage.
 
 ## Požiadavky
 

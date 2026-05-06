@@ -74,12 +74,13 @@ torque.dsfactory.APP.connection.password = cud
 
 1. **Build & Test stage:** 
    - Zbuilduje sa Docker obraz z `Dockerfile`
-   - Spustí sa `mvn clean package` (kompiluje a balí aplikáciu vrátane unit testov)
+   - Spustí sa `mvn clean package -Dtest=!*IntegrationTest` (kompiluje a balí aplikáciu)
+   - **Integračné testy sú vylúčené** - tie vyžadujú bežiacu aplikáciu
    - Vytvorí sa `.war` súbor
-   - Publikujú sa výsledky testov (JUnit reports)
+   - Publikujú sa výsledky unit testov
 
 2. **Unit Tests stage:**
-   - Spustia sa všetky unit testy pomocou `mvn test`
+   - Spustia sa len unit testy (integračné testy sú automaticky vylúčené cez pom.xml)
    - Výsledky testov sa publikujú v Jenkins UI
 
 3. **Integration Tests stage:**
@@ -87,8 +88,30 @@ torque.dsfactory.APP.connection.password = cud
    - Spustí Tomcat na pozadí
    - Počká kým sa aplikácia naštartuje (health check na WSDL endpoint)
    - Spustí smoke testy (CudWSAvailabilityTest) ktoré overujú dostupnosť WSDL
-   - Pre plné integračné testy je potrebné nastaviť prihlasovacie údaje
+   - **Spustí plné integračné testy (CudWSIntegrationTest)** s konfigurovateľnými credentials
    - Po testoch zastaví Tomcat
+
+## Konfigurácia prihlasovacích údajov
+
+Pre spustenie integračných testov je potrebné nastaviť `TEST_ACCOUNT_ID` v `Jenkinsfile`:
+
+```groovy
+environment {
+    TORQUE_CONFIG_PATH = '/var/jenkins_home/configs/Torque.properties'
+    TEST_ACCOUNT_ID = '136'  // <-- UPRAVTE na platný account ID
+}
+```
+
+**Bezpečnejšia alternatíva:** Použite Jenkins Credentials Plugin:
+
+1. V Jenkins UI: Manage Jenkins → Credentials → Add Credentials
+2. Uložte account ID ako "Secret text"
+3. V Jenkinsfile:
+```groovy
+environment {
+    TEST_ACCOUNT_ID = credentials('test-account-id')
+}
+```
 
 4. **Archive stage:**
    - Archivuje sa `.war` súbor pre neskoršie použitie

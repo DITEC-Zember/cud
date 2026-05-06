@@ -24,9 +24,9 @@ import sk.ditec.cud.dto.DTOCiselnik;
  */
 public class CudWSIntegrationTest {
 
-	private static final String WSDL_URL = "http://localhost:8081/cud/CudWS?wsdl";
-	private static final String NAMESPACE_URI = "urn:ws.server.cud.zsr.ditec.sk";
-	private static final String SERVICE_NAME = "CudWSService";
+    // Použitie system properties pre flexibilitu - môže sa prepísať cez -Dwsdl.url=... a -DaccountId=...
+    private static final String WSDL_URL = System.getProperty("wsdl.url", "http://localhost:8081/cud/CudWS?wsdl");
+    private static final String ACCOUNT_ID = System.getProperty("accountId", "136");
 
 	private CudWSRemote cudWS;
 
@@ -105,8 +105,8 @@ public class CudWSIntegrationTest {
 
 		// DÔLEŽITÉ: Nastavte platné prihlasovacie údaje pre váš systém
 		// AuthInfoWS používa public fieldy, nie settery
-		authWS.setAccountId(136);
-		// Heslo sa pravdepodobne odosiela inak alebo nie je potrebné
+		// Môže sa prepísať cez -DaccountId=...
+		authWS.setAccountId(Integer.parseInt(ACCOUNT_ID));
 
 		return authWS;
 	}

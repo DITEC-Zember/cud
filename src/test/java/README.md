@@ -62,26 +62,45 @@ mvn test -Dtest=CudWSIntegrationTest#testCiselnikList_BasicCall
 
 Testy sa automaticky spúšťajú v Jenkins pipeline:
 
-- **Build & Test stage**: Maven `package` automaticky spustí všetky testy
-- **Unit Tests stage**: Explicitne spustí `mvn test` a publikuje výsledky
+- **Build & Test stage**: Maven `package` s vylúčením integračných testov (len unit testy)
+- **Unit Tests stage**: Explicitne spustí `mvn test` s vylúčením integračných testov
 - **Integration Tests stage**: 
   - Nasadí aplikáciu do Tomcat
   - Spustí smoke testy (CudWSAvailabilityTest) ktoré overujú dostupnosť WSDL
-  - Pre plné integračné testy by bolo potrebné nastaviť prihlasovacie údaje
+  - **Spustí plné integračné testy (CudWSIntegrationTest)** s konfigurovateľnými credentials
+
+### Konfigurácia credentials pre Jenkins
+
+V `Jenkinsfile` nastavte:
+```groovy
+environment {
+    TEST_ACCOUNT_ID = '136'  // Platný account ID
+}
+```
+
+Testy sa spustia s:
+```bash
+mvn test -Dtest=CudWSIntegrationTest -Dwsdl.url=http://localhost:8080/cud/CudWS?wsdl -DaccountId=136
+```
 
 Pre zobrazenie výsledkov testov v Jenkins UI, prejdite na:
 - Build detail → Test Results
 
-### Spustenie testov s vlastnou URL
+### Spustenie testov s vlastnou URL a credentials
 
-Testy podporujú konfiguráciu URL cez system property:
+Testy podporujú konfiguráciu cez system properties:
 
 ```bash
 # Lokálne testovanie
+mvn test -Dtest=CudWSIntegrationTest \
+  -Dwsdl.url=http://localhost:8081/cud/CudWS?wsdl \
+  -DaccountId=136
+
+# Smoke test
 mvn test -Dtest=CudWSAvailabilityTest -Dwsdl.url=http://localhost:8081/cud/CudWS?wsdl
 
 # V Jenkins (port 8080 v Docker kontajneri)
-mvn test -Dtest=CudWSAvailabilityTest -Dwsdl.url=http://localhost:8080/cud/CudWS?wsdl
+mvn test -Dtest=*IntegrationTest -Dwsdl.url=http://localhost:8080/cud/CudWS?wsdl -DaccountId=136
 ```
 
 ## Testové scenáre
@@ -89,11 +108,66 @@ mvn test -Dtest=CudWSAvailabilityTest -Dwsdl.url=http://localhost:8080/cud/CudWS
 ### 1. testCiselnikList_BasicCall
 Základný test, ktorý volá metódu `ciselnikList` bez špecifických filtrov.
 
+**Poznámka:** Tento test vyžaduje bežiacu aplikáciu a je vylúčený z bežného `mvn test`.
+
 ### 2. testCiselnikList_WithPagination
 Test paginácie - overuje, že služba správne spracováva stránkovanie (maximálne 10 záznamov).
 
+**Poznámka:** Tento test vyžaduje bežiacu aplikáciu a je vylúčený z bežného `mvn test`.
+
 ### 3. testCiselnikList_WithFilter
 Test filtrovania - overuje, že služba správne aplikuje filtre.
+
+**Poznámka:** Tento test vyžaduje bežiacu aplikáciu a je vylúčený z bežného `mvn test`.
+
+## Vylúčenie integračných testov
+
+Integračné testy (CudWSIntegrationTest) vyžadujú bežiacu aplikáciu, takže sú **automaticky vylúčené** pomocou Maven Surefire Plugin konfigurácie v pom.xml.
+
+Pri týchto príkazoch sa **NESPÚŠŤAJÚ** integračné testy:
+
+```bash
+mvn test          # Len unit testy
+mvn package       # Build + len unit testy
+mvn clean install # Build + len unit testy
+```
+
+Pre explicitné vylúčenie (nie je nutné, ale možné):
+```bash
+mvn test -Dtest=!*IntegrationTest
+```
+
+### Spustenie integračných testov
+
+**Predpoklad:** Aplikácia musí bežať na localhost:8081
+
+```bash
+# Spustiť LEN integračné testy
+mvn test -Dtest=*IntegrationTest
+
+# Spustiť konkrétny integračný test
+mvn test -Dtest=CudWSIntegrationTest
+
+# Spustiť všetky testy vrátane integračných (POZOR: integračné zlyhajú ak aplikácia nebeží)
+mvn test -Dtest=*
+```
+
+### Poznámka pre Maven Surefire Plugin
+
+V `pom.xml` je nakonfigurované:
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-surefire-plugin</artifactId>
+    <configuration>
+        <excludes>
+            <exclude>**/*IntegrationTest.java</exclude>
+        </excludes>
+    </configuration>
+</plugin>
+```
+
+Toto zabezpečí, že integračné testy sa automaticky vylúčia z bežného `mvn test`.
 
 ## Riešenie problémov
 

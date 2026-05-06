@@ -4,6 +4,10 @@ pipeline {
     environment {
         // Cesta k Torque.properties na Jenkins serveri (uprav podľa svojho umiestnenia)
         TORQUE_CONFIG_PATH = '/var/jenkins_home/configs/Torque.properties'
+        
+        // Prihlasovacie údaje pre integračné testy (UPRAVTE PODĽA VAŠEJ KONFIGURÁCIE)
+        // Môžete tiež použiť Jenkins Credentials Plugin namiesto hardcoded hodnôt
+        TEST_ACCOUNT_ID = '136'  // Account ID pre integračné testy
     }
     
     stages {
@@ -23,7 +27,8 @@ pipeline {
             }
             steps {
                 echo 'Building CUD application...'
-                sh 'mvn clean package'
+                // Vylúčenie integračných testov - tie bežia až v Integration Tests stage
+                sh 'mvn clean package -Dtest=!*IntegrationTest'
                 
                 // Ulož WAR súbor pre neskoršie použitie
                 stash includes: 'target/*.war', name: 'war-file'
@@ -31,7 +36,7 @@ pipeline {
             post {
                 always {
                     // Publikuj výsledky testov (JUnit reports)
-                    junit '**/target/surefire-reports/*.xml'
+                    junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
                 }
             }
         }
@@ -45,12 +50,13 @@ pipeline {
             }
             steps {
                 echo 'Running unit tests...'
-                sh 'mvn test'
+                // Spusti len unit testy, vynechaj integračné
+                sh 'mvn test -Dtest=!*IntegrationTest'
             }
             post {
                 always {
                     // Publikuj výsledky unit testov
-                    junit '**/target/surefire-reports/*.xml'
+                    junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
                 }
             }
         }
@@ -92,14 +98,15 @@ pipeline {
                     echo 'Running smoke tests...'
                     sh 'mvn test -Dtest=CudWSAvailabilityTest -Dwsdl.url=http://localhost:8080/cud/CudWS?wsdl'
                     
-                    // Pre integračné testy by bolo potrebné nastaviť prihlasovacie údaje
-                    // sh 'mvn test -Dtest=CudWSIntegrationTest -Dwsdl.url=http://localhost:8080/cud/CudWS?wsdl'
+                    // Spusti integračné testy s konfigurovateľnými credentials
+                    echo 'Running integration tests...'
+                    sh "mvn test -Dtest=CudWSIntegrationTest -Dwsdl.url=http://localhost:8080/cud/CudWS?wsdl -DaccountId=${TEST_ACCOUNT_ID}"
                 }
             }
             post {
                 always {
                     // Publikuj výsledky integračných testov
-                    junit '**/target/surefire-reports/*.xml'
+                    junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
                     
                     // Zastaviť Tomcat
                     sh 'catalina.sh stop || true'
