@@ -43,6 +43,16 @@ pipeline {
                 unstash 'war-file'
                 
                 script {
+                    // Skopíruj Torque.properties na správne miesto (keďže entrypoint je vypnutý)
+                    sh '''
+                        if [ -f /config/Torque.properties ]; then
+                            echo "Copying Torque.properties from /config/ to JavaSource/"
+                            cp /config/Torque.properties JavaSource/Torque.properties
+                        else
+                            echo "WARNING: Torque.properties not found at /config/Torque.properties"
+                        fi
+                    '''
+                    
                     // Nasaď WAR do Tomcat
                     sh 'cp target/*.war /usr/local/tomcat/webapps/cud.war'
                     
