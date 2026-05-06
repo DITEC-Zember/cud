@@ -112,7 +112,6 @@ pipeline {
                     sh 'catalina.sh stop || true'
                 }
             }
-            }
         }
         
         stage('Archive') {
