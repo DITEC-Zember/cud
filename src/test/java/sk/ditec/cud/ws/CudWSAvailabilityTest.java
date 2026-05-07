@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.junit.Test;
+
 /**
  * Jednoduchý smoke test pre overenie dostupnosti CudWS webovej služby. Tento test len overuje, či je WSDL prístupný -
  * nevyžaduje prihlasovacie údaje.
@@ -16,10 +18,8 @@ public class CudWSAvailabilityTest {
 	// Použitie system property pre flexibilitu - defaultne localhost:8081, ale môže sa prepísať cez -Dwsdl.url=...
 	private static final String WSDL_URL = System.getProperty("wsdl.url", "http://localhost:8081/cud/CudWS?wsdl");
 
-	// @Test
-	public static void main(String[] args) throws Exception {
-
-		// public void testWsdlIsAccessible() throws Exception {
+	@Test
+	public void testWsdlIsAccessible() throws Exception {
 		System.out.println("Overujem dostupnosť WSDL: " + WSDL_URL);
 
 		URL url = new URL(WSDL_URL);
